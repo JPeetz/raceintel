@@ -3,7 +3,6 @@ import Link from "next/link";
 import { Calendar, MapPin, Clock, ChevronRight } from "lucide-react";
 
 export const dynamic = "force-dynamic";
-export const revalidate = 300; // ISR every 5 min
 
 export default async function RacesPage() {
   const supabase = await createClient();
