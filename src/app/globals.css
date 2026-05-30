@@ -1,26 +1,56 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --racing-navy: #0a0d14;
+  --racing-card: #11141c;
+  --racing-green: #10b981;
+  --racing-gold: #f59e0b;
+  --racing-amber: #d97706;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--racing-navy);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Racing card with left accent border */
+.racing-card {
+  background: var(--racing-card);
+  border-left: 4px solid var(--racing-green);
+  transition: all 0.2s ease-in-out;
+}
+
+.racing-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(16, 185, 129, 0.08);
+}
+
+/* Gold variant */
+.racing-card-gold {
+  background: var(--racing-card);
+  border-left: 4px solid var(--racing-gold);
+  transition: all 0.2s ease-in-out;
+}
+
+.racing-card-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(245, 158, 11, 0.1);
+}
+
+/* Utility classes matching Cheltenham design system */
+.gradient-gold {
+  background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #f59e0b 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Animations */
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s ease-in-out infinite;
 }

@@ -1,66 +1,74 @@
 import type { Metadata } from "next";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+});
+
+const jetbrains = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+});
+
 export const metadata: Metadata = {
-  title: {
-    default: "RaceIntel — AI Horse Racing Intelligence | UK & Irish Form Analysis",
-    template: "%s | RaceIntel",
-  },
+  title: "RaceIntel — AI Horse Racing Intelligence | UK & Ireland Form Analysis",
   description:
-    "AI-powered UK & Irish horse racing intelligence. 13-factor GG Score rankings, daily selections, pace simulation, and professional-grade form analysis. Start your 7-day free trial.",
+    "Professional AI-powered UK and Irish horse racing intelligence. 13-factor GG Score rankings, daily selections, pace simulation, and expert form analysis for every race. Free trial available.",
   keywords: [
-    "horse racing", "racing tips", "AI racing predictions", "GG Score", "UK horse racing",
-    "Irish horse racing", "race cards", "form analysis", "Cheltenham tips", "betting tracker",
-    "horse racing app", "racing intelligence", "pace simulation", "draw bias",
+    "horse racing tips",
+    "UK horse racing predictions",
+    "Irish racing tips",
+    "Cheltenham Festival",
+    "AI horse racing analytics",
+    "horse racing form analysis",
+    "GG Score",
+    "racing intelligence",
+    "daily racing selections",
+    "pace simulation",
   ],
-  authors: [{ name: "RaceIntel" }],
-  creator: "RaceIntel",
-  publisher: "RaceIntel",
-  metadataBase: new URL("https://raceintel.com"),
   openGraph: {
-    type: "website",
-    locale: "en_GB",
-    siteName: "RaceIntel",
     title: "RaceIntel — AI Horse Racing Intelligence",
     description:
-      "AI-powered UK & Irish horse racing intelligence. GG Score rankings, daily selections, and professional-grade form analysis.",
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+      "Every UK & Ireland race analysed by AI. GG Score rankings, daily selections, pace simulation, and professional-grade form analysis.",
+    url: "https://raceintel.vercel.app",
+    siteName: "RaceIntel",
+    images: [
+      {
+        url: "https://images.pexels.com/photos/12950515/pexels-photo-12950515.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: "en_GB",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "RaceIntel — AI Horse Racing Intelligence",
     description:
-      "AI-powered UK & Irish horse racing intelligence. GG Score rankings, daily selections, and professional-grade form analysis.",
-    images: ["/og-image.png"],
+      "Professional AI-driven horse racing predictions and form analysis for UK & Ireland.",
+    images: [
+      "https://images.pexels.com/photos/12950515/pexels-photo-12950515.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    ],
   },
-  robots: { index: true, follow: true },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en-GB" className="dark" suppressHydrationWarning>
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebApplication",
-              name: "RaceIntel",
-              applicationCategory: "SportsApplication",
-              operatingSystem: "Web, iOS, Android",
-              description:
-                "AI-powered UK & Irish horse racing intelligence platform with 13-factor GG Score rankings, daily selections, pace simulation, and professional form analysis.",
-              offers: {
-                "@type": "Offer",
-                price: "9.99",
-                priceCurrency: "GBP",
-              },
-            }),
-          }}
-        />
-      </head>
-      <body className="antialiased bg-[#0a0d14] text-white">
+    <html lang="en">
+      <body
+        className={`${inter.variable} ${jetbrains.variable} antialiased bg-[#0a0d14] text-white font-sans`}
+      >
         {children}
       </body>
     </html>
