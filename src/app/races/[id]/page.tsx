@@ -170,7 +170,7 @@ export default async function RaceDetailPage({ params }: Props) {
               See 13-factor AI rankings for every runner including form, class, pace, trainer & jockey stats, 
               draw bias, going suitability, and a composite GG Score.
             </p>
-            <a href="/signup" className="inline-flex px-6 py-2.5 rounded-xl bg-emerald-500 text-black font-semibold hover:bg-emerald-400 transition-colors">
+            <a href="/auth?tab=signup" className="inline-flex px-6 py-2.5 rounded-xl bg-emerald-500 text-black font-semibold hover:bg-emerald-400 transition-colors">
               Start Free Trial
             </a>
           </div>

@@ -71,7 +71,7 @@ export default function HomePage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/signup"
+              href="/auth?tab=signup"
               className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-emerald-500 text-black font-semibold hover:bg-emerald-400 transition-colors"
             >
               Start 7-Day Free Trial <ArrowRight className="w-4 h-4" />
@@ -235,7 +235,7 @@ export default function HomePage() {
                 </li>
               ))}
             </ul>
-            <Link href="/signup" className="block text-center py-3 rounded-xl bg-emerald-500 text-black font-semibold hover:bg-emerald-400 transition-colors">
+            <Link href="/auth?tab=signup" className="block text-center py-3 rounded-xl bg-emerald-500 text-black font-semibold hover:bg-emerald-400 transition-colors">
               Start 7-Day Free Trial
             </Link>
             <p className="text-center text-gray-500 text-xs mt-3">No charge until trial ends. Cancel anytime.</p>
@@ -253,7 +253,7 @@ export default function HomePage() {
             Join racing fans who use RaceIntel to study form, track performance, 
             and make more informed decisions at the track.
           </p>
-          <Link href="/signup" className="inline-flex items-center gap-2 px-10 py-4 rounded-xl bg-emerald-500 text-black font-semibold hover:bg-emerald-400 transition-colors text-lg">
+          <Link href="/auth?tab=signup" className="inline-flex items-center gap-2 px-10 py-4 rounded-xl bg-emerald-500 text-black font-semibold hover:bg-emerald-400 transition-colors text-lg">
             Start Your Journey <ArrowRight className="w-5 h-5" />
           </Link>
           <p className="text-gray-500 text-sm mt-4">iOS & Android apps coming soon</p>

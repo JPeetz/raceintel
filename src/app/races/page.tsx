@@ -314,7 +314,7 @@ export default async function RacesPage({
             form tools for every UK & Irish race.
           </p>
           <Link
-            href="/signup"
+            href="/auth?tab=signup"
             className="inline-flex px-8 py-3 rounded-xl bg-emerald-500 text-black font-semibold hover:bg-emerald-400 transition-colors"
           >
             Start 7-Day Free Trial

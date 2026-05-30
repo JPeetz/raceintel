@@ -5,7 +5,7 @@ export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Public routes — no auth required
-  const publicPaths = ["/", "/races", "/faq", "/privacy", "/terms", "/responsible-gambling"];
+  const publicPaths = ["/", "/races", "/auth", "/faq", "/privacy", "/terms", "/responsible-gambling"];
   const isPublic =
     publicPaths.includes(pathname) ||
     pathname.startsWith("/races/") ||
