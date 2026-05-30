@@ -92,9 +92,9 @@ export default function HomePage() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {[
             { value: "13", label: "AI Factors per Runner" },
-            { value: "48+", label: "Races Analysed Daily" },
-            { value: "7", label: "UK & Irish Meetings" },
-            { value: "500K+", label: "Historical Data Points" },
+            { value: "137", label: "Races This Week" },
+            { value: "20+", label: "UK & Irish Courses" },
+            { value: "493K", label: "Horses in Database" },
           ].map((s) => (
             <div key={s.label} className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.06]">
               <div className="text-3xl font-bold text-emerald-400">{s.value}</div>
@@ -102,6 +102,9 @@ export default function HomePage() {
             </div>
           ))}
         </div>
+        <p className="text-center text-gray-600 text-xs mt-4">
+          Data last refreshed: 30 May 2026 · RaceIntel v1.0.3
+        </p>
       </section>
 
       {/* Features */}
