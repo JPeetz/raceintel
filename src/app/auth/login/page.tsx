@@ -1,30 +1,30 @@
 "use client";
 
+import { Suspense, useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
-import { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
-export default function LoginPage() {
+function LoginForm() {
   const supabase = createClient();
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect") || "/dashboard";
+  const [origin, setOrigin] = useState("");
 
   useEffect(() => {
+    setOrigin(window.location.origin);
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) router.replace(redirect);
     });
-
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
       if (session) router.replace(redirect);
     });
-
     return () => subscription.unsubscribe();
   }, [router, redirect, supabase]);
 
@@ -42,32 +42,36 @@ export default function LoginPage() {
           <h1 className="text-2xl font-bold text-white mb-2">Welcome back</h1>
           <p className="text-gray-400 mb-8">Sign in to access your Racing Hub</p>
           <div className="rounded-xl bg-white/[0.03] border border-white/[0.06] p-6">
-            <Auth
-              supabaseClient={supabase}
-              view="sign_in"
-              appearance={{
-                theme: ThemeSupa,
-                variables: {
-                  default: {
-                    colors: {
-                      brand: "#10b981",
-                      brandAccent: "#059669",
-                      inputBackground: "#1a1d24",
-                      inputBorder: "#2a2d34",
-                      inputText: "#fff",
-                      inputPlaceholder: "#6b7280",
+            {origin ? (
+              <Auth
+                supabaseClient={supabase}
+                view="sign_in"
+                appearance={{
+                  theme: ThemeSupa,
+                  variables: {
+                    default: {
+                      colors: {
+                        brand: "#10b981",
+                        brandAccent: "#059669",
+                        inputBackground: "#1a1d24",
+                        inputBorder: "#2a2d34",
+                        inputText: "#fff",
+                        inputPlaceholder: "#6b7280",
+                      },
                     },
                   },
-                },
-                className: {
-                  button: "!rounded-xl !text-sm !font-semibold",
-                  input: "!rounded-lg !text-sm",
-                  label: "!text-gray-300",
-                },
-              }}
-              providers={[]}
-              redirectTo={`${window.location.origin}/auth/callback`}
-            />
+                  className: {
+                    button: "!rounded-xl !text-sm !font-semibold",
+                    input: "!rounded-lg !text-sm",
+                    label: "!text-gray-300",
+                  },
+                }}
+                providers={[]}
+                redirectTo={`${origin}/auth/callback`}
+              />
+            ) : (
+              <div className="text-center py-8 text-gray-400">Loading...</div>
+            )}
           </div>
           <p className="text-gray-500 text-sm text-center mt-6">
             Don&apos;t have an account?{" "}
@@ -78,5 +82,13 @@ export default function LoginPage() {
         </div>
       </div>
     </main>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#0a0d14] flex items-center justify-center"><div className="text-gray-400">Loading...</div></div>}>
+      <LoginForm />
+    </Suspense>
   );
 }

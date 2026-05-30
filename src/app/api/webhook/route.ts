@@ -3,7 +3,7 @@ import { supabaseAdmin } from "@/lib/supabase/admin";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
-  apiVersion: "2025-03-31.basil",
+  apiVersion: "2026-05-27.dahlia",
 });
 
 export async function POST(request: Request) {
@@ -26,27 +26,27 @@ export async function POST(request: Request) {
         const subscriptionId = session.subscription as string;
 
         if (userId && subscriptionId) {
-          const sub = await stripe.subscriptions.retrieve(subscriptionId);
+          const sub = await stripe.subscriptions.retrieve(subscriptionId) as Stripe.Subscription;
 
+          const subData = sub as any;
           await supabaseAdmin.from("user_subscriptions").upsert({
             user_id: userId,
             plan,
             status: "trialing",
-            stripe_customer_id: session.customer,
+            stripe_customer_id: session.customer as string,
             stripe_subscription_id: subscriptionId,
             is_trialing: true,
-            trial_start: new Date(sub.trial_start! * 1000).toISOString(),
-            trial_end: new Date(sub.trial_end! * 1000).toISOString(),
-            current_period_start: new Date(sub.current_period_start * 1000).toISOString(),
-            current_period_end: new Date(sub.current_period_end * 1000).toISOString(),
+            trial_start: subData.trial_start ? new Date(subData.trial_start * 1000).toISOString() : new Date().toISOString(),
+            trial_end: subData.trial_end ? new Date(subData.trial_end * 1000).toISOString() : new Date().toISOString(),
+            current_period_start: new Date(subData.current_period_start * 1000).toISOString(),
+            current_period_end: new Date(subData.current_period_end * 1000).toISOString(),
           }, { onConflict: "user_id" });
         }
         break;
       }
 
       case "customer.subscription.updated": {
-        const sub = event.data.object as Stripe.Subscription;
-        const customerId = sub.customer as string;
+        const sub = event.data.object as any;
 
         let status: string = "inactive";
         if (sub.status === "active") status = "active";
@@ -67,7 +67,7 @@ export async function POST(request: Request) {
       }
 
       case "customer.subscription.deleted": {
-        const sub = event.data.object as Stripe.Subscription;
+        const sub = event.data.object as any;
         await supabaseAdmin.from("user_subscriptions")
           .update({ status: "cancelled" })
           .eq("stripe_subscription_id", sub.id);
